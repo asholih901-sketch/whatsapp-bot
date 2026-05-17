@@ -3,19 +3,21 @@ from flask import Flask, request, Response
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.request_validator import RequestValidator
 from datetime import datetime
+from groq import Groq
 
 app = Flask(__name__)
 
 TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN", "")
 VALIDATE_REQUESTS = bool(TWILIO_AUTH_TOKEN)
 
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 def build_reply(incoming_msg: str) -> str:
     msg = incoming_msg.strip().lower()
 
     if any(w in msg for w in ["halo", "hi", "hello", "hai", "hey"]):
         return (
-            "Halo! Saya adalah WhatsApp Bot otomatis Buatan M Ahmad Sholih.\n\n"
+            "Halo! Saya adalah WhatsApp Bot otomatis.\n\n"
             "Ketik *bantuan* untuk melihat daftar perintah yang tersedia."
         )
 
@@ -26,7 +28,7 @@ def build_reply(incoming_msg: str) -> str:
             "- *info* - Informasi tentang bot\n"
             "- *jam* - Lihat waktu sekarang\n"
             "- *bantuan* - Tampilkan menu ini\n\n"
-            "Kirim pesan apapun dan saya akan membalasnya!"
+            "Kirim pesan apapun dan saya akan membalasnya menggunakan AI!"
         )
 
     if "info" in msg:
@@ -34,7 +36,8 @@ def build_reply(incoming_msg: str) -> str:
             "*Info Bot*\n\n"
             "Saya adalah WhatsApp Bot yang dibangun dengan:\n"
             "- Python Flask\n"
-            "- Twilio WhatsApp API\n\n"
+            "- Twilio WhatsApp API\n"
+            "- Groq AI (Llama 3.1)\n\n"
             "Bot ini membalas pesan secara otomatis."
         )
 
@@ -43,10 +46,18 @@ def build_reply(incoming_msg: str) -> str:
         date = datetime.now().strftime("%d %B %Y")
         return f"Sekarang pukul *{now}*\nTanggal: *{date}*"
 
-    return (
-        f"Kamu mengirim: _{incoming_msg}_\n\n"
-        "Saya belum mengerti perintah itu. Ketik *bantuan* untuk melihat daftar perintah."
-    )
+    try:
+        instruksi = "Kamu adalah asisten WhatsApp yang cerdas dan ramah. Jawab pakai bahasa Indonesia yang santai."
+        respons = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {"role": "system", "content": instruksi},
+                {"role": "user", "content": incoming_msg}
+            ]
+        )
+        return respons.choices[0].message.content
+    except Exception as e:
+        return f"Waduh, AI lagi bermasalah nih. Coba lagi ya!"
 
 
 @app.route("/webhook", methods=["POST"])
@@ -79,7 +90,7 @@ def index():
         "service": "WhatsApp Bot",
         "status": "running",
         "webhook_endpoint": "POST /webhook"
-    }, 200
+    }
 
 
 if __name__ == "__main__":
