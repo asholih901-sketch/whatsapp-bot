@@ -57,8 +57,7 @@ def build_reply(incoming_msg: str) -> str:
         )
         return respons.choices[0].message.content
     except Exception as e:
-        return f"Waduh, AI lagi bermasalah nih. Coba lagi ya!"
-
+        return "Waduh, AI lagi bermasalah nih. Coba lagi ya!"
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
@@ -78,11 +77,9 @@ def webhook():
 
     return Response(str(resp), mimetype="application/xml")
 
-
 @app.route("/health", methods=["GET"])
 def health():
     return {"status": "ok", "service": "whatsapp-bot"}, 200
-
 
 @app.route("/", methods=["GET"])
 def index():
@@ -91,7 +88,6 @@ def index():
         "status": "running",
         "webhook_endpoint": "POST /webhook"
     }
-
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
