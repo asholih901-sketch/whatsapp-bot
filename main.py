@@ -17,7 +17,7 @@ def build_reply(incoming_msg: str) -> str:
 
     if any(w in msg for w in ["halo", "hi", "hello", "hai", "hey"]):
         return (
-            "Halo! Saya adalah WhatsApp Bot otomatis Buatan MUHAMMAD AHMAD SHOLIH.\n\n"
+            "Halo! Saya adalah WhatsApp Bot otomatis Buatan *MUHAMMAD AHMAD SHOLIH*.\n\n"
             "Ketik *bantuan* untuk melihat daftar perintah yang tersedia."
         )
 
