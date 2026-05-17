@@ -3,6 +3,7 @@ from flask import Flask, request, Response
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.request_validator import RequestValidator
 from datetime import datetime
+import pytz
 from groq import Groq
 
 app = Flask(__name__)
@@ -44,7 +45,7 @@ def build_reply(incoming_msg: str) -> str:
 
     if any(w in msg for w in ["pembuat", "creator", "tentang"]):
         return (
-            "*Tentang Pembuat Bot* \U0001f9d1\u200d\U0001f4bb\n\n"
+            "*Tentang Pembuat Bot* 👨‍💻\n\n"
             "Nama: M Ahmad Sholih\n"
             "Instagram: @mads_if\n"
             "Asal: Indonesia\n"
@@ -59,12 +60,13 @@ def build_reply(incoming_msg: str) -> str:
         )
 
     if any(w in msg for w in ["jam", "waktu", "time"]):
-        now = datetime.now().strftime("%H:%M:%S")
-        date = datetime.now().strftime("%d %B %Y")
-        return f"Sekarang pukul *{now}*\nTanggal: *{date}*"
+        wib = pytz.timezone("Asia/Jakarta")
+        now = datetime.now(wib).strftime("%H:%M:%S")
+        date = datetime.now(wib).strftime("%d %B %Y")
+        return f"Sekarang pukul *{now}* WIB\nTanggal: *{date}*"
 
     try:
-        instruksi = "Kamu adalah asisten WhatsApp milik M Ahmad Sholih. Ahmad adalah pemilik bot ini, seorang pemuda Indonesia yang sedang belajar programming jika anda penasaran dengan dirinya ikuti ig nya (mads_if). Jika ditanya tentang Ahmad atau pemilik bot, jawab sesuai info ini. Jawab semua pertanyaan pakai bahasa Indonesia yang santai."
+        instruksi = "Kamu adalah Mads.AI, asisten WhatsApp cerdas. Jangan pernah menyebut nama M Ahmad Sholih saat memperkenalkan diri. Selalu sebut dirimu sebagai Mads.AI. Jawab semua pertanyaan pakai bahasa Indonesia yang santai."
         respons = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[
