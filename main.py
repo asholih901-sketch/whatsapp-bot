@@ -29,7 +29,7 @@ def build_reply(incoming_msg: str) -> str:
             "- *pembuat* - Info tentang pembuat bot\n"
             "- *jam* - Lihat waktu sekarang\n"
             "- *bantuan* - Tampilkan menu ini\n\n"
-            "Kirim pesan apapun dan saya akan membalasnya menggunakan AI!"
+            "*Kirim pesan apapun dan saya akan membalasnya menggunakan Mads.AI!*"
         )
 
     if "info" in msg:
@@ -68,7 +68,7 @@ def build_reply(incoming_msg: str) -> str:
         )
         return respons.choices[0].message.content
     except Exception as e:
-        return "Waduh, AI lagi bermasalah nih. Coba lagi ya!"
+        return "Waduh, Mads.AI lagi bermasalah nih. Coba lagi ya!"
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
