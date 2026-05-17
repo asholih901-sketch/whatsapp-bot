@@ -48,7 +48,12 @@ def build_reply(incoming_msg: str) -> str:
             "Nama: M Ahmad Sholih\n"
             "Instagram: @mads_if\n"
             "Asal: Indonesia\n"
-            "Hobi: Belajar programming\n\n"
+            "Hobi: Belajar programming
+                   olahraga:-boxing
+                            -mendaki
+                            -lari
+                            -berenang
+                            -dan semua jenis olahraga\n\n"
             "Bot ini dibuat sebagai proyek belajar!"
         )
 
