@@ -18,29 +18,29 @@ def build_reply(incoming_msg: str) -> str:
 
     if any(w in msg for w in ["halo", "hi", "hello", "hai", "hey"]):
         return (
-            "Halo! Saya adalah WhatsApp Bot otomatis Buatan *MUHAMMAD AHMAD SHOLIH*.\n\n"
-            "Ketik *bantuan* untuk melihat daftar perintah yang tersedia."
+            "Halo bro! 👋 Gue Mads.AI, bot WhatsApp buatan *M Ahmad Sholih*.\n\n"
+            "Ketik *bantuan* buat liat perintah yang tersedia ya!"
         )
 
     if msg in ["bantuan", "help", "menu"]:
         return (
             "*Daftar Perintah:*\n\n"
-            "- *halo* - Sapa bot\n"
-            "- *info* - Informasi tentang bot\n"
-            "- *pembuat* - Info tentang pembuat bot\n"
-            "- *jam* - Lihat waktu sekarang\n"
+            "- *halo* - Sapa gue\n"
+            "- *info* - Info tentang bot ini\n"
+            "- *pembuat* - Info tentang yang bikin bot\n"
+            "- *jam* - Cek waktu sekarang\n"
             "- *bantuan* - Tampilkan menu ini\n\n"
-            "*Kirim pesan apapun dan saya akan membalasnya menggunakan Mads.AI!*"
+            "Atau langsung aja tanya apapun ke gue, Mads.AI siap bantu! 🤖"
         )
 
     if msg == "info":
         return (
-            "*Info Bot*\n\n"
-            "Saya adalah WhatsApp Bot yang dibangun dengan:\n"
+            "*Info Bot* ⚙️\n\n"
+            "Gue dibangun pake:\n"
             "- Python Flask\n"
             "- Twilio WhatsApp API\n"
             "- Groq AI (Llama 3.1)\n\n"
-            "Bot ini membalas pesan secara otomatis."
+            "Gue bisa jawab pertanyaan apapun secara otomatis. Keren kan? 😎"
         )
 
     if msg in ["pembuat", "creator"]:
@@ -56,28 +56,28 @@ def build_reply(incoming_msg: str) -> str:
             "- Lari\n"
             "- Berenang\n"
             "- Dan semua jenis olahraga\n\n"
-            "Bot ini dibuat sebagai proyek belajar!"
+            "Keren kan orangnya? 😄"
         )
 
     if msg in ["jam", "waktu", "time"]:
         wib = pytz.timezone("Asia/Jakarta")
         now = datetime.now(wib).strftime("%H:%M:%S")
         date = datetime.now(wib).strftime("%d %B %Y")
-        return f"Sekarang pukul *{now}* WIB\nTanggal: *{date}*"
+        return f"Sekarang pukul *{now}* WIB\nTanggal: *{date}* 🕐"
 
     try:
         instruksi = (
-            "Kamu adalah Mads.AI, asisten WhatsApp cerdas dan serba bisa. "
-            "Jawab semua topik pertanyaan dengan singkat, padat, dan jelas — maksimal 3-4 kalimat. "
-            "Gunakan bahasa Indonesia yang santai. "
-            "Pembuatmu adalah M Ahmad Sholih, seorang pemuda dari Nganjuk, Jawa Timur yang sedang belajar berbagai bidang salah satunya adalah: programing,bahasa,dan agama. "
-            "Instagramnya @mads_if. "
-            "Jika ditanya tentang pembuatmu, jelaskan info tersebut dengan singkat. "
-            "Jangan pernah mengarang info lain tentang pembuatmu selain yang disebutkan."
+            "Kamu adalah Mads.AI, asisten WhatsApp yang gaul, cerdas, dan asik diajak ngobrol. "
+            "Jawab semua pertanyaan dengan bahasa Indonesia yang santai dan gaul, kayak ngobrol sama teman. "
+            "Jangan terlalu formal atau baku. Boleh pakai kata-kata kayak 'bro', 'nih', 'sih', 'dong', 'gue', 'lo'. "
+            "Jawaban jangan terlalu singkat tapi juga jangan terlalu panjang — cukup yang penting aja, mudah dimengerti. "
+            "Pembuatmu adalah M Ahmad Sholih, pemuda dari Nganjuk Jawa Timur yang lagi belajar programming, ignya @mads_if. "
+            "Kalau ditanya soal pembuatmu, jelasin dengan santai. "
+            "Jangan ngarang info lain tentang pembuatmu selain yang udah dikasih tau."
         )
         respons = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            max_tokens=200,
+            max_tokens=400,
             messages=[
                 {"role": "system", "content": instruksi},
                 {"role": "user", "content": incoming_msg}
@@ -85,7 +85,7 @@ def build_reply(incoming_msg: str) -> str:
         )
         return respons.choices[0].message.content
     except Exception as e:
-        return "Waduh, Mads.AI lagi bermasalah nih. Coba lagi ya!"
+        return "Waduh, Mads.AI lagi error nih bro. Coba lagi bentar ya! 🙏"
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
