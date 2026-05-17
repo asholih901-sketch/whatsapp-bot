@@ -28,7 +28,7 @@ def build_reply(incoming_msg: str) -> str:
             "- *info* - Informasi tentang bot\n"
             "- *jam* - Lihat waktu sekarang\n"
             "- *bantuan* - Tampilkan menu ini\n\n"
-            "Kirim pesan apapun dan saya akan membalasnya menggunakan AI hasil MADSSS!"
+            "Kirim pesan apapun dan saya akan membalasnya menggunakan AI MADSSS!"
         )
 
     if "info" in msg:
