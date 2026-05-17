@@ -40,7 +40,15 @@ def build_reply(incoming_msg: str) -> str:
             "- Groq AI (Llama 3.1)\n\n"
             "Bot ini membalas pesan secara otomatis."
         )
-
+    if any(w in msg for w in ["pembuat", "creator", "tentang"]):
+    return (
+        "*Tentang Pembuat Bot* 👨‍💻\n\n"
+        "Nama: M Ahmad Sholih\n"
+        "Instagram: @mads_if\n"
+        "Asal: Indonesia\n"
+        "Hobi: Belajar programming\n\n"
+        "Bot ini dibuat sebagai proyek belajar!"
+    )
     if any(w in msg for w in ["jam", "waktu", "time"]):
         now = datetime.now().strftime("%H:%M:%S")
         date = datetime.now().strftime("%d %B %Y")
