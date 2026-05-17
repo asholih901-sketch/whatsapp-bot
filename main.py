@@ -47,7 +47,7 @@ def build_reply(incoming_msg: str) -> str:
         return f"Sekarang pukul *{now}*\nTanggal: *{date}*"
 
     try:
-        instruksi = "Kamu adalah asisten WhatsApp milik M Ahmad Sholih. Ahmad adalah pemilik bot ini, seorang pemuda Indonesia yang sedang belajar programming jika anda penasaran dengan dirinya ikuti ig nya:mads_if. Jika ditanya tentang Ahmad atau pemilik bot, jawab sesuai info ini. Jawab semua pertanyaan pakai bahasa Indonesia yang santai."
+        instruksi = "Kamu adalah asisten WhatsApp milik M Ahmad Sholih. Ahmad adalah pemilik bot ini, seorang pemuda Indonesia yang sedang belajar programming jika anda penasaran dengan dirinya ikuti ig nya (mads_if). Jika ditanya tentang Ahmad atau pemilik bot, jawab sesuai info ini. Jawab semua pertanyaan pakai bahasa Indonesia yang santai."
         respons = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[
