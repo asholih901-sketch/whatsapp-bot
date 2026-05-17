@@ -44,16 +44,17 @@ def build_reply(incoming_msg: str) -> str:
 
     if any(w in msg for w in ["pembuat", "creator", "tentang"]):
         return (
-            "*Tentang Pembuat Bot* 👨‍💻\n\n"
+            "*Tentang Pembuat Bot* \U0001f9d1\u200d\U0001f4bb\n\n"
             "Nama: M Ahmad Sholih\n"
             "Instagram: @mads_if\n"
             "Asal: Indonesia\n"
-            "Hobi: Belajar programming
-                   olahraga:-boxing
-                            -mendaki
-                            -lari
-                            -berenang
-                            -dan semua jenis olahraga\n\n"
+            "Hobi: Belajar programming\n"
+            "Olahraga:\n"
+            "- Boxing\n"
+            "- Mendaki\n"
+            "- Lari\n"
+            "- Berenang\n"
+            "- Dan semua jenis olahraga\n\n"
             "Bot ini dibuat sebagai proyek belajar!"
         )
 
