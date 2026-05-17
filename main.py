@@ -48,7 +48,7 @@ def build_reply(incoming_msg: str) -> str:
             "*Tentang Pembuat Bot* 👨‍💻\n\n"
             "Nama: M Ahmad Sholih\n"
             "Instagram: @mads_if\n"
-            "Asal: Indonesia\n"
+            "Asal: Nganjuk, Jawa Timur\n"
             "Hobi: Belajar programming\n"
             "Olahraga:\n"
             "- Boxing\n"
@@ -66,9 +66,18 @@ def build_reply(incoming_msg: str) -> str:
         return f"Sekarang pukul *{now}* WIB\nTanggal: *{date}*"
 
     try:
-        instruksi = "Kamu adalah Mads.AI, asisten WhatsApp cerdas. Jangan pernah menyebut nama M Ahmad Sholih saat memperkenalkan diri. Selalu sebut dirimu sebagai Mads.AI. Jawab semua pertanyaan pakai bahasa Indonesia yang santai."
+        instruksi = (
+            "Kamu adalah Mads.AI, asisten WhatsApp cerdas dan serba bisa. "
+            "Jawab semua topik pertanyaan dengan singkat, padat, dan jelas — maksimal 3-4 kalimat. "
+            "Gunakan bahasa Indonesia yang santai. "
+            "Pembuatmu adalah M Ahmad Sholih, seorang pemuda dari Nganjuk, Jawa Timur yang sedang belajar programming. "
+            "Instagramnya @mads_if. "
+            "Jika ditanya tentang pembuatmu, jelaskan info tersebut dengan singkat. "
+            "Jangan pernah mengarang info lain tentang pembuatmu selain yang disebutkan."
+        )
         respons = client.chat.completions.create(
             model="llama-3.1-8b-instant",
+            max_tokens=200,
             messages=[
                 {"role": "system", "content": instruksi},
                 {"role": "user", "content": incoming_msg}
