@@ -33,7 +33,7 @@ def build_reply(incoming_msg: str) -> str:
             "*Kirim pesan apapun dan saya akan membalasnya menggunakan Mads.AI!*"
         )
 
-    if "info" in msg:
+    if msg == "info":
         return (
             "*Info Bot*\n\n"
             "Saya adalah WhatsApp Bot yang dibangun dengan:\n"
@@ -43,7 +43,7 @@ def build_reply(incoming_msg: str) -> str:
             "Bot ini membalas pesan secara otomatis."
         )
 
-    if any(w in msg for w in ["pembuat", "creator", "tentang"]):
+    if any(w in msg for w in ["pembuat", "creator"]):
         return (
             "*Tentang Pembuat Bot* 👨‍💻\n\n"
             "Nama: M Ahmad Sholih\n"
