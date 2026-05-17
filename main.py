@@ -22,7 +22,7 @@ def build_reply(incoming_msg: str) -> str:
             "Ketik *bantuan* untuk melihat daftar perintah yang tersedia."
         )
 
-    if any(w in msg for w in ["bantuan", "help", "menu"]):
+    if msg in ["bantuan", "help", "menu"]:
         return (
             "*Daftar Perintah:*\n\n"
             "- *halo* - Sapa bot\n"
@@ -43,7 +43,7 @@ def build_reply(incoming_msg: str) -> str:
             "Bot ini membalas pesan secara otomatis."
         )
 
-    if any(w in msg for w in ["pembuat", "creator"]):
+    if msg in ["pembuat", "creator"]:
         return (
             "*Tentang Pembuat Bot* 👨‍💻\n\n"
             "Nama: M Ahmad Sholih\n"
@@ -59,7 +59,7 @@ def build_reply(incoming_msg: str) -> str:
             "Bot ini dibuat sebagai proyek belajar!"
         )
 
-    if any(w in msg for w in ["jam", "waktu", "time"]):
+    if msg in ["jam", "waktu", "time"]:
         wib = pytz.timezone("Asia/Jakarta")
         now = datetime.now(wib).strftime("%H:%M:%S")
         date = datetime.now(wib).strftime("%d %B %Y")
